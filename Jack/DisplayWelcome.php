@@ -1,0 +1,240 @@
+<html>
+<body>
+
+<meta charset="UTF-8">
+
+<head>
+  <link rel="stylesheet" href="./styles.css">
+  <title>DisplayWelcome</title>
+</head>
+  
+
+<body>
+
+<ul>
+  <li><a href="./index.html">Home</a></li>
+  <li><a href="./implementation.html">Implementation</a></li>
+  <li><a class="active" href="./WelcomePage.html">PHP Welcome</a></li>
+</ul>
+
+<div style="padding:20px;margin-top:30px;background-color:#1abc9c;
+            height:1500px;">
+
+
+<!-- Code adapted and learnt from www.w3schools.com -->
+
+<?php
+//Database handling
+
+// Load the configuration file containing your database credentials
+require_once('./config.inc.php');
+require_once('./GroupDBNames.php');
+
+// Connect to the group database
+$mysqli = new mysqli($database_host, $database_user, $database_pass, $group_dbnames[0]);
+
+// Check for errors before doing anything else
+if($mysqli -> connect_error) 
+{
+  die('Connect Error ('.$mysqli -> connect_errno.') '.$mysqli -> connect_error);
+}
+
+
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") 
+{
+  // get fields
+  $email = $_POST['email'];
+  $name = $_POST['FirstName'];
+  $surname = $_POST['Surname'];
+  $isMember = 0;
+  
+  $error = 0;
+  $newUser = 1;
+  $newEmail = 1;
+  
+  
+  
+  
+  //FIRST NAME CHECKS
+  
+  //check if no name was given
+  if (empty($name))
+  {
+    echo "Name is required <br>";
+    $error = 1;
+  }
+  // check if name only contains letters and whitespace
+  if (!preg_match("/^[a-zA-Z ]*$/",$name))
+  {
+    echo "Only letters and white space allowed in name <br>";
+    $error = 1;
+  }
+  
+  //SURNAME CHECKS
+  
+  //check if no name was given
+  if (empty($surname))
+  {
+    echo "Surame is required <br>";
+    $error = 1;
+  }
+  // check if name only contains letters and whitespace
+  if (!preg_match("/^[a-zA-Z ]*$/",$surname))
+  {
+    echo "Only letters and white space allowed in surname <br>";
+    $error = 1;
+  }
+  
+  //EMAIL CHECKS
+    
+  //check if no email was given
+  if (empty($email))
+  {
+    echo "Email is required <br>";
+    $error = 1;
+    echo "error = " . $error . "<br>";
+  }
+  //check if the email is valid
+  else if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+  {
+    echo "Invalid email format <br>";
+    $error = 1;
+    echo "error = " . $error . "<br>";
+  }
+  //output error if there's already a problem with the other fields
+  else if ($error == 1) 
+  {
+    echo "error = " . $error . "<br>";
+  }
+
+  //GROUP MEMBER CHECKS
+  
+  if(isset($_POST['groupMember']))
+  {
+    $isMember = 1;
+  }
+
+  //print response if no error
+  if ($error == 0)
+  {
+    if($isMember == 1)
+    {
+      echo "Welcome back $name, you're a member of X2! <br>
+            Email: ". $email . "<br>";
+    }
+    else
+    {
+      echo "Hi $name, you're not a member of X2 <br>
+            Email: ". $email . "<br><br>";
+    } 
+    
+  //check to see if record already exists, based on full name  and email
+  
+  $sql = "SELECT FirstName, LastName, Email FROM People";
+  $result = $mysqli->query($sql);
+
+  if ($result->num_rows > 0) 
+  {
+    // search data of each row
+    while($row = $result->fetch_assoc()) 
+    {
+      if ($row["FirstName"] == $name)
+      {
+        if ($row["LastName"] == $surname)
+        {
+          $newUser = 0;  
+          $recordEmail = $row["Email"];
+        }
+      }
+      if ($row["Email"] == $email)
+      {
+        $newEmail = 0;
+        $error = 1;
+      }
+    }
+    
+    if ($newUser == 0)
+    {
+      if ($newEmail == 1)
+      {
+      echo "user already exists, with different email: <br>" . 
+            $recordEmail . "<br> New user not created. <br>";
+      }
+      else
+      {
+        echo "user already exists. New user not created. <br>";
+      }
+    }
+    else if ($newEmail == 0)
+    {
+      echo "this email already exists, new user not created. <br>";
+    }
+    else
+    {
+      echo "User doesn't already exist. <br>";
+    }
+            
+  }
+  
+
+  //prepare to insert into table
+  $sql = "INSERT INTO People (FirstName, LastName, Email, Group_Member)
+          VALUES ('$name', '$surname', '$email', $isMember)";
+
+  //if there's no errors, and it's a new record, insert new record into table
+  if ($error == 0)
+    //write data to table
+    if ($newUser == 1)
+    {
+      if ($mysqli->query($sql) === TRUE) 
+      {
+        echo "New record created successfully <br>";
+      } 
+      else 
+      {
+        echo "Error: " . $sql . "<br>" . $mysqli->error;
+      }
+    }
+  }
+
+  //tell user to correct errors before continuing
+  else if ($error == 1)
+  {
+    echo "Correct above errors. <br>";
+  }
+  //catch weird errors
+  else
+  {
+    echo "error unknown";
+  }
+  
+  //print table for testing purposes.
+  
+  echo "<br> <br> <br> <br> <br>";
+  $sql = "SELECT ID, FirstName, LastName, Email, Group_Member FROM People";
+  $result = $mysqli->query($sql);
+
+  if ($result->num_rows > 0) 
+  {
+    // output data of each row
+    while($row = $result->fetch_assoc()) 
+    {
+      echo "id: " . $row["ID"] . " - Name:  " . $row["FirstName"] . " " . 
+      $row["LastName"] . "<br>" . "..........Email: " . $row["Email"] . 
+      "<br>" . "is member? " . $row["Group_Member"] . "<br> <br>";
+    }
+  } 
+  else 
+  {
+    echo "0 results";
+  }
+
+}  
+// Always close your connection to the database cleanly!
+$mysqli -> close();
+?>
+
+</div>
+</body>
+</html>
