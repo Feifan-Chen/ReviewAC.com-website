@@ -1,0 +1,11 @@
+#!/bin/bash
+mysql -h dbhost.cs.man.ac.uk -u j76744mk -pminbang0529 j76744mk<<QUERY_INPUT
+DELETE FROM welcomeinfo;
+INSERT INTO welcomeinfo (name, mail) VALUES ('Minsung', 'min.kang-3@manchester.ac.uk');
+INSERT INTO welcomeinfo (name, mail) VALUES ('Diana', 'diana.dobrescu@manchester.ac.uk');
+INSERT INTO welcomeinfo (name, mail) VALUES ('Feifan', 'feifan.chen@manchester.ac.uk');
+INSERT INTO welcomeinfo (name, mail) VALUES ('Lilin', 'lilin.huang@manchester.ac.uk');
+INSERT INTO welcomeinfo (name, mail) VALUES ('Jack', 'jack.hulme@manchester.ac.uk');
+INSERT INTO welcomeinfo (name, mail) VALUES ('Joe', 'joseph.thompson-3@student.manchester.ac.uk');
+INSERT INTO welcomeinfo (name, mail) VALUES ('Vlad', 'vlad.lungu@student.manchester.ac.uk');
+QUERY_INPUT
