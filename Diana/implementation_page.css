@@ -1,0 +1,40 @@
+
+/*This sets the universal box-sizing--content, padding and border*/
+* {
+    box-sizing: border-box;
+}
+/*Styling the body*/
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/*Styling the header*/
+header {
+    background-color: #680000 ;
+    padding: 20px;
+    text-align: center;
+    font-size: 25px;
+    color: #D3D3D3;
+}
+
+/* Styling the main part of the web-page */
+article {
+    float: left;
+    padding: 20px;
+    width: 100%;
+    background-color: #f1f1f1;
+  
+}
+
+
+/* Styling the footer */
+footer {
+    background-color: #777;
+    padding: 10px;
+    text-align: center;
+    color: white;
+}
+
+
+
