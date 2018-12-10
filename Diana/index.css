@@ -1,0 +1,61 @@
+
+
+/*This sets the universal box-sizing--content, padding and border*/
+* {
+    box-sizing: border-box;
+}
+  
+/* Styling the body */
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Styling the header */
+header {
+    background-color: #680000 ;
+    padding: 20px;
+    text-align: center;
+    font-size: 25px;
+    color: #D3D3D3;
+}
+
+/* Styling the contents bar */
+div {
+    float: left;
+    width: 15%;
+    height: 1033px;
+    background: #ccc;
+    padding: 20px;
+}
+
+/* Styling the list inside the contents bar */
+div ul {
+   padding: 20px;
+}
+
+/* Styling the main part of the page */
+
+article {
+    float: left;
+    padding: 20px;
+    width: 85%;
+    background-color: #f1f1f1;
+  
+}
+
+
+
+/* Styling the footer */
+footer {
+    background-color: #777;
+    padding: 10px;
+    text-align: center;
+    color: white;
+}
+
+/* Styling the h1 heading */
+h1 {
+text-align: center;
+font-size: 20px;
+}
