@@ -1,0 +1,34 @@
+
+/* CSS Document */
+body {
+  padding-left: 11em;
+  font-family: Georgia, "Times New Roman",
+        Times, serif;
+  color: purple;
+  background-color: #d8da3d }
+
+h1 {
+  font-family: Helvetica, Geneva, Arial,
+        SunSans-Regular, sans-serif }
+.parag1 {
+color:#660;
+}
+a:link {
+  color: blue }
+a:visited {
+  color: purple }
+
+#mainNav table{
+	border:0;
+}
+#mainNav td{
+	width:168px;
+	
+}
+#mainNav a {
+		color: #663300;
+}
+#mainNav a:hover, #mainNav a:active {
+	color: #000000;
+	background-color: #CC9966;
+}

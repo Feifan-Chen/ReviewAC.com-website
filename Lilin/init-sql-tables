@@ -1,0 +1,2 @@
+#!/bin/bash
+mysql -h dbhost.cs.man.ac.uk -u q06722lh -p q06722lh -e "delete from MyGroup"
