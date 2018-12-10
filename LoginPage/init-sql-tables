@@ -1,0 +1,23 @@
+#!/bin/bash
+mysql -h dbhost.cs.man.ac.uk -u y76564jh -p y76564jh --password="+Mydatabase+" << sql
+
+use y76564jh;
+
+DROP TABLE test;
+
+CREATE TABLE test AS
+SELECT ID, LastName, FirstName, Email, Group_Member
+FROM People
+
+sql
+
+mysql -h dbhost.cs.man.ac.uk -u y76564jh -p y76564jh --password="+Mydatabase+" << sql2
+
+use y76564jh;
+
+
+SELECT * FROM test;
+
+
+
+sql2

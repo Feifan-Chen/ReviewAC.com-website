@@ -1,0 +1,35 @@
+
+/* style for unordered lists e.g the navigation bar */
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+/*lists are aligned to the left */
+li {
+    float: left;
+}
+
+/* style for hyperlinks */
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+/* Changes colour when hovering or active*/
+
+list a:hover:not(.active) {
+    background-color: #111;
+}
+
+.active {
+    background-color: #4CAF50;
+}    
